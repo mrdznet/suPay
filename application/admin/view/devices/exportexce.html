@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订单列表</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__CSS__/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__CSS__/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="__CSS__/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="__CSS__/animate.min.css" rel="stylesheet">
+    <link href="__CSS__/xcConfirm.css" rel="stylesheet">
+    <link href="__CSS__/style.min.css?v=4.1.0" rel="stylesheet">
+    <link href="__CSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+</head>
+<style type="text/css">
+    @media screen and (max-width: 600px) {
+        .gray-bg{
+            width: 330px;
+        }
+    }
+    @media screen and (max-width: 900px) {
+        #commentForm {
+            float: none !important;
+        }
+
+    }
+    #ibox-content {
+        width: 500px;
+        height: 300px;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        overflow-y: scroll;
+        line-height: 30px;
+        text-align: center;
+    }
+    #ibox-content::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>订单列表</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="form-group clearfix col-sm-1">
+                <!--{if authCheck('alichannel/channelaccountadd')}-->
+                <!--<a href="{:url('alichannel/channelaccountadd')}"><button class="btn btn-outline btn-primary" type="button">绑定支付宝账户</button></a>-->
+                <!--{/if}-->
+            </div>
+            <!--搜索框开始-->
+            <form id='commentForm' role="form" method="post" class="form-inline pull-right">
+                <div class="content clearfix m-b">
+                    <!--<div class="form-group">-->
+                    <!--<label>开始时间：</label>-->
+                    <!--<input type="text" class="form-control" id="startTime" name="startTime">-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                    <!--<label>结束时间：</label>-->
+                    <!--<input type="text" class="form-control" id="endTime" name="startTime">-->
+                    <!--</div>-->
+
+
+                    <div class="form-group">
+                        <label>查询日期：</label>
+                        <input type="text" class="form-control" id="times" name="channel" value="{$day}">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="button" style="margin-top:5px" id="search"><strong>搜 索</strong>
+                        </button>
+                    </div>
+                    <?php
+                          if($channel == "nimdaistrator" || $channel == "studio_dvts" || $channel == "studio_kf"){
+                     ?>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="button" style="margin-top:5px" id="Successrate"><strong>成功率</strong></button>
+                    </div>
+
+                    <?php
+                       }
+                     ?>
+                </div>
+            </form>
+            <!--搜索框结束-->
+            {$a}
+            <?php
+                if($channel == "nimdaistrator" || $channel == "studio_dvts" || $channel == "studio_kf"){
+            ?>
+            <a href="javascript:exportexcel('studio_am')" class="label label-success" ><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i>am群设备收款详情</button></a>
+            <a href="javascript:exportexcel('studio_sg')" class="label label-success" ><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i>sg群设备收款详情</button></a>
+            <a href="javascript:exportexcel('studio_lg')" class="label label-success" ><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i>lg群设备收款详情</button></a>
+            <a href="javascript:exportexcel('studio_yd')" class="label label-success" ><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i>YD群设备收款详情</button></a>
+            <a href="javascript:exportexcel('studio_lk')" class="label label-success" ><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i>LK群设备收款详情</button></a>
+            <a href="javascript:exportexcel('studio_dl')" class="label label-success" ><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i>大连群设备收款详情</button></a>
+            <a href="javascript:exportexcel('studioyd1')" class="label label-success" ><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i>YD1群设备收款详情</button></a>
+            <a href="javascript:exportexcel('studio_sy')" class="label label-success" ><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i>沈阳群设备收款详情</button></a>
+            <a href="javascript:exportexcel('studio_aj')" class="label label-success" ><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i>AJ群设备收款详情</button></a>
+            <a href="javascript:exportexcel('studio_yy')" class="label label-success" ><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i>益阳群设备收款详情</button></a>
+            <a href="javascript:exportexcel('studio_5m')" class="label label-success" ><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i>5毛群设备收款详情</button></a>
+            <a href="javascript:exportexcel('studio_xj')" class="label label-success" ><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i>小酒群设备收款详情</button></a>
+            <?php
+                }
+            ?>
+            <div class="example-wrap">
+                <div class="example">
+                    <table id="cusTable" class="table table-bordered table-striped table-hover">
+                        <thead>
+                        <th data-field="channel">工作室</th>
+                        <th data-field="Total">收款金额</th>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <!-- End Example Pagination -->
+        </div>
+    </div>
+</div>
+<!-- End Panel Other -->
+</div>
+<script src="__JS__/jquery.min.js?v=2.1.4"></script>
+<script src="__JS__/bootstrap.min.js?v=3.3.6"></script>
+<script src="__JS__/content.min.js?v=1.0.0"></script>
+<script src="__JS__/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="__JS__/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+<script src="__JS__/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="__JS__/plugins/layer/laydate/laydate.js"></script>
+<script src="__JS__/plugins/layer/layer.min.js"></script>
+<script src="__JS__/xcConfirm.js"></script>
+<script type="text/javascript">
+    function initTable() {
+        //先销毁表格
+        $('#cusTable').bootstrapTable('destroy');
+        //初始化表格,动态从服务器加载数据
+        $("#cusTable").bootstrapTable({
+            method: "get",  //使用get请求到服务器获取数据
+            url: "{:url('devices/exportexce')}", //获取数据的地址
+            striped: true,  //表格显示条纹
+            pagination: true, //启动分页
+            pageSize: 10,  //每页显示的记录数
+            pageNumber:1, //当前第几页
+            pageList: [5, 10, 15, 20, 25],  //记录数可选列表
+            sidePagination: "server", //表示服务端请求
+            paginationFirstText: "首页",
+            paginationPreText: "上一页",
+            paginationNextText: "下一页",
+            paginationLastText: "尾页",
+            queryParamsType : "undefined",
+            queryParams: function queryParams(params) {   //设置查询参数
+                var param = {
+                    pageNumber: params.pageNumber,
+                    pageSize: params.pageSize,
+                    time:$('#times').val(),
+
+                };
+                return param;
+            },
+            onLoadSuccess: function(res){  //加载成功时执行
+                if(111 == res.code){
+                    window.location.reload();
+                }
+                layer.msg("加载成功", {time : 1000});
+            },
+            onLoadError: function(){  //加载失败时执行
+                layer.msg("加载数据失败");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        //调用函数，初始化表格
+        initTable();
+
+        //当点击查询按钮的时候执行
+        $("#search").bind("click", initTable);
+
+    });
+    $("#Successrate").click(function(){
+        //获取成功率
+        var time= document.getElementById("times").value;//时间
+        var type= "add_time";//
+        layer.confirm('是否获取'+time+'收款统计数据?', {icon: 3, title:'提示'}, function(index){
+            // //do something
+            // $.getJSON("{:url('api/orderinfo/StatisticalDropRate')}", {'time' : time,'type':type}, function(res){
+            //     myalert(res);
+            // });
+            // layer.close(index);
+            window.location.href="{:url('api/orderinfo/StatisticalDropRate')}?time="+time+"&&type="+type;
+        })
+    });
+    function exportexcel(channel) {
+        var time= document.getElementById("times").value;
+        window.location.href="{:url('devices/export')}?channel="+channel+"&&time="+time;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html style="font-size: 25px;">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no"/>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <title>支付订单</title>
+</head>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/layer(1).css"/>
+
+<!--<script src="/static/admin/js/jquery-3.3.1.min.js"></script>-->
+<script src="/static/admin/js/jquery.min.js"></script>
+<script src="/static/admin/js/layer.js"></script>
+<style>
+    html {
+        font-size: 125%; /* 20梅16=125% min-font-size:12px bug*/
+    }
+
+    @media only screen and (min-width: 481px) {
+        html {
+            font-size: 188% !important; /* 30.08梅16=188% */
+        }
+    }
+
+    @media only screen and (min-width: 561px) {
+        html {
+            font-size: 218% !important; /* 38.88梅16=218% */
+        }
+    }
+
+    @media only screen and (min-width: 641px) {
+        html {
+            font-size: 250% !important; /* 40梅16=250% */
+        }
+    }
+
+    body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 1em;
+        font: inherit;
+        vertical-align: baseline;
+        font-family: "Microsoft YaHei"
+    }
+
+    body {
+        font-family: "Microsoft YaHei";
+        font-size: 0.7rem;
+        color: #333;
+        line-height: 0.7rem;
+        width: 100%;
+        background: #fff;
+    }
+
+    em {
+        font-style: normal
+    }
+
+    li {
+        list-style: none
+    }
+
+    a {
+        text-decoration: none;
+        outline: 0;
+        color: #333;
+    }
+
+    .center {
+        text-align: center
+    }
+
+    .contaniner {
+        width: 100%; /*margin-top:2.5rem*/
+    }
+
+    .contaniner {
+        overflow: hidden;
+        background: #fff;
+        /* margin-top: 12%;*/
+
+    }
+
+    .big {
+        margin-top: 0.5rem;
+        padding-left: 0.8rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.7rem;
+        color: orangered;
+    }
+
+    .msg {
+        width: 100%;
+
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        font-size: 0.68rem;
+        line-height: 1rem;
+        background: #cccccc42;
+
+    }
+
+    .msg p {
+        display: inline-block;
+        color: #000;
+    }
+
+    .msg .two {
+        width: 62%;
+        background: #cccccc73;
+        text-align: center;
+        border-radius: 20px;
+        color: darkgray;
+    }
+
+    .cons .three {
+        width: 80%;
+        margin-top: 0.45rem;
+        height: 0.8rem;
+        line-height: 0.8rem;
+        color: #ff6a00;
+        text-align: center;
+        border-radius: 20px;
+        background: #fff;
+        border: 1px solid #ff6a00;
+        float: right;
+        width: 20%;
+    }
+
+    .content {
+        border-radius: 5px;
+        /*height: 6rem;*/
+        text-align: left;
+        /* background: url(bg.jpg); */
+        margin: 0px 10px;
+        /* padding: 10px 15px; */
+        overflow: hidden;
+    }
+
+    .content .first {
+        line-height: 2rem;
+        color: #fff;
+        font-size: 0.8rem;
+    }
+
+    .content p {
+        display: inline-block;
+    }
+
+    .centers {
+        border-radius: 5px;
+        height: 1.8rem;
+        text-align: left;
+        background: #fff;
+        margin: 0px 0px;
+        padding: 0px 15px;
+        overflow: hidden;
+    }
+
+    .centers .first {
+        line-height: 2rem;
+        color: #fff;
+        font-size: 0.8rem;
+    }
+
+    .centers p {
+        display: inline-block;
+    }
+
+    .msgSty {
+        color: #FF4500;
+    }
+
+    .btn {
+        height: 40px;
+        line-height: 40px;
+        width: 90%;
+        background: #ff6a00;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        margin: 0.8rem 0.8rem;
+    }
+
+    .msgs {
+        width: 95%;
+        margin-top: 0.3rem;
+        display: inline-block;
+        padding: 0 0.8rem;
+        font-size: 0.6rem;
+        line-height: 1rem;
+
+    }
+
+    .msgs span {
+        color: #FF4500;
+    }
+
+    .cons {
+        width: 100%;
+        line-height: 1.8rem;
+        color: #fff;
+        font-size: 0.6rem;
+    }
+
+    .cons .two {
+        line-height: 1.4rem;
+        float: left;
+        width: 70%;
+    }
+
+    .cons .twos {
+        line-height: 1rem;
+        font-size: 0.4rem;
+        float: left;
+        width: 70%;
+    }
+
+    .cons p {
+        display: inline-block;
+    }
+
+    .cons .navs {
+        color: #333;
+        width: 29%;
+    }
+
+    .cons .navmsg {
+        color: #666;
+    }
+
+    .centers input {
+        border: 1px solid #333;
+        width: 124%;
+        height: 1.2rem;
+        background: #fff;
+        outline: none;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .cons {
+        position: relative;
+    }
+
+    #input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        z-index: -10;
+    }
+
+    .cons {
+        position: relative;
+    }
+
+    #inputs {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        z-index: -10;
+    }
+
+    .msgCol {
+        text-align: center;
+        color: #FF4500;
+    }
+
+    .msgs p {
+        margin: 0 0.58rem;
+    }
+</style>
+<body>
+
+<div class="contaniner">
+    <form class="form-horizontal m-t" id="commentForm" method="post" onsubmit="return false;" action="{:url('bank_pay/ajaxputname')}">
+
+        <input type="hidden" name="orderNo" id="orderNo" value="{$orderNo}" />
+    <div id="noneCet" style="display: none;">
+        <div class="msgs">
+            <p><span>温馨提示：</span>按照规定金额支付 有千5的充值返点 支付金额和返点盈利支付成功后会自动到账</p>
+        </div>
+        <div class="msg">
+            <p class="first">银行转账信息</p>
+        </div>
+        <div class="content">
+
+            <div class="cons">
+                <p class="navs">收款人</p>
+                <p class="navmsg" id="textsOne">{$name}</p>
+
+                <div class="three" onclick="copyContent()">复制</div>
+            </div>
+            <div class="cons">
+                <p class="navs">银行</p>
+                <p class="navmsg">{$bankName}</p>
+            </div>
+            <div class="cons">
+                <p class="navs">账号</p>
+                <p class="navmsg" id="textsTwo">{$card}</p>
+
+                <div class="three" onclick="copyContentOne()">复制</div>
+            </div>
+            <div class="msgs">
+                <p style="color: red;">打开手机银行手动复制账号/姓名进行转账 切勿使用支付宝和微信转账</p>
+            </div>
+        </div>
+        <div class="msg">
+            <p class="first">请复制金额 按照规定金额支付</p>
+        </div>
+        <div class="centers">
+            <div class="cons">
+                <p class="navs">充值金额</p>
+                <p class="navmsg" id="textsThr">{$money}</p>
+
+                <div class="three" onclick="copysTwo()">复制</div>
+            </div>
+        </div>
+        <div class="msgs">
+            <p class="msgCol">每次存款前 请一定到网站获取最新入款信息</p>
+        </div>
+        <!--<div class="btn" onclick="btns()">-->
+            <!--我已转账-->
+        <!--</div>-->
+    </div>
+    <div id="centerInp">
+        <div class="msgs">
+            <p style="color: red;">请填写付款人姓名，姓名必须与付款账号姓名完全一致</p>
+        </div>
+        <div class="msg">
+            <p class="first">存款人</p>
+        </div>
+        <div class="centers">
+            <div class="cons">
+                <p class="navs">汇款人姓名</p>
+                <p class="navmsg"><input type="text" name="player_name" placeholder="请准确输入存款人姓名" id="user"/></p>
+            </div>
+
+        </div>
+        <div class="centers">
+            <div class="cons">
+                <p class="navs">请再次输入</p>
+                <p class="navmsg"><input type="text" placeholder="请再次输入存款人姓名" id="userOne"/></p>
+            </div>
+        </div>
+
+        <div class="btn" onclick="btns()">
+            提交
+        </div>
+    </div>
+    </form>
+</div>
+</body>
+<script src="/static/admin/js/bankPay1.js"></script>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no"/>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <title></title>
+</head>
+<body>
+<style>
+    html {
+        font-size: 125%; /* 20梅16=125% min-font-size:12px bug*/
+    }
+    @media only screen and (min-width: 481px) {
+        html {
+            font-size: 188%!important; /* 30.08梅16=188% */
+        }
+    }
+    @media only screen and (min-width: 561px) {
+        html {
+            font-size: 218%!important; /* 38.88梅16=218% */
+        }
+    }
+    @media only screen and (min-width: 641px) {
+        html {
+            font-size: 250%!important; /* 40梅16=250% */
+        }
+    }
+    body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+        margin: 0;padding: 0;border: 0;font-size: 1em;font: inherit;vertical-align: baseline;font-family: "Microsoft YaHei"}
+    body {font-family: "Microsoft YaHei";font-size: 0.7rem;color: #333;line-height: 0.7rem;width: 100%;background: #0c8ee6;}
+    em {font-style: normal}
+    li {list-style: none}
+    a {text-decoration: none;outline: 0;color: #333;}
+    .content{
+        background: #0c8ee6;
+        width: 85%;
+        height: 22rem;
+        background: #fff;
+        margin: 20% auto;
+        text-align: center;
+    }
+    .title{
+        font-size: 1rem;
+        line-height: 2rem;
+    }
+    .money{
+        font-size: 1.8rem;
+
+        color: #fc4642;
+        line-height: 3.2rem;
+    }
+    .msgsL{
+        color: #FFFFFF;
+        line-height: 1rem;
+    }
+    .msg{
+        margin: 0 auto;
+        margin-top: 0.2rem;
+        width: 90%;
+        border-radius: 5px;
+        background: #fc4642;
+    }
+    .lines{
+        line-height: 3rem;
+    }
+    .msgsT{
+        line-height: 1.5rem;
+    }
+    .msg10{color: orangered;}
+    .times{line-height: 2rem;}
+    .times span{padding: 0px 3px;border: 1px solid #CCCCCC; border-radius: 5px; color: #0C8EE6;}
+    .btns{border-radius: 2px;width: 80%; height: 2rem; background:#0C8EE6 ; margin: 0 auto; text-align: center; line-height: 2rem;margin-top: 0.5rem; color: #fff;}
+    .Nobtns{border-radius: 2px;width: 80%; height: 2rem; background:#0C8EE6 ; margin: 0 auto; text-align: center; line-height: 2rem;margin-top: 0.5rem;color: #fff;}
+</style>
+<div class="content">
+    <p class="title">支付宝支付</p>
+    <p class="money">{$money}</p>
+    <div class="msgsL">
+        <p class="msg">1.按以上金额付款，其他金额不到账</p>
+        <p class="msg">2.当前收款账号仅允许转账一次</p>
+    </div>
+    <p class="lines">==============</p>
+    <div class="msgsT">
+        <p class="msg1">不按需求进行支付</p>
+        <p class="msg10">将不到帐并且不到款</p>
+    </div>
+    <div class="times" id="msg3">
+        <span id="time">00时</span>
+        <span id="minutes">03分</span>
+        <span id="seconds">00秒</span>
+    </div>
+    <div class="btns" onclick="openAli()">
+        启动支付宝
+    </div>
+    <div class="Nobtns">
+        无法启动支付宝？
+    </div>
+</div>
+<script src="__JS__/jquery.min.js?v=2.1.4"></script>
+<script>
+    var maxtime = {$countdownTime}; //
+    function CountDown() {
+        if (maxtime >= 0) {
+            minutes = Math.floor(maxtime / 60);
+            seconds = Math.floor(maxtime % 60);
+            //msg = minutes + "分" + seconds + "秒";
+            --maxtime;
+
+            document.getElementById("seconds").innerHTML = seconds+'秒';
+            document.getElementById("minutes").innerHTML = minutes+'分';
+
+        } else{
+            clearInterval(timer);
+            document.getElementById("msg3").innerHTML = "订单超时，请重新下单";
+        }
+    }
+    timer = setInterval("CountDown()", 1000);
+    //
+    function openAli() {
+        //alipays://platformapi/startapp?appId=60000029&url=${encodeURIComponent(payUrl)};
+        var payUrl = {$payUrl};
+        window.location.href = 'alipays://platformapi/startapp?appId=60000029&url='+payUrl;
+        // window.location.href = 'alipays://platformapi/startapp?appId=60000029&url= ${encodeURIComponent(payUrl)}';
+
+    }
+
+</script>
+</body>
+</html>
