@@ -18,7 +18,11 @@
     </script>
 
 </head>
-
+<style>
+    .signinpanel form{
+        background: rgba(72, 13, 86, 0.2);
+    }
+</style>
 <body class="signin">
 <div class="signinpanel">
     <div class="row">
@@ -27,23 +31,19 @@
                 <div class="logopanel m-b">
                 </div>
                 <div class="m-b"></div>
-                <h4>欢迎使用 <strong>snake</strong></h4>
                 <ul class="m-b">
-
                 </ul>
             </div>
         </div>
         <div class="col-sm-5">
             <form method="post" action="index.html">
-                <p class="m-t-md" id="err_msg">登录到snake后台</p>
                 <input type="text" class="form-control uname" placeholder="用户名" id="user_name" />
                 <input type="password" class="form-control pword m-b" placeholder="密码" id="password" />
                 <div id="show" style="margin-bottom:70px;">
-                    <input type="text" class="form-control potatoCode" placeholder="potato验证码" style="color:black;width:120px;float:left;margin:0px 0px;" name="potatoCode" id="potatoCode"/>
+<!--                    <input type="text" class="form-control potatoCode" placeholder="potato验证码" style="color:black;width:120px;float:left;margin:0px 0px;" name="potatoCode" id="potatoCode"/>-->
                     <!--<img id="verify" src="{:url('checkVerify')}" onclick="javascript:this.src='{:url('checkVerify')}?tm='+Math.random();" style="float:right;cursor: pointer"/>-->
                      <!--<input  class="btn btn-success btn-block " id="login_step_1" name="login_step_1" style="float:right;width: 100px; margin-top :0px;cursor: pointer" value="获取验证码"/>-->
                 </div>
-
                 <input class="btn btn-success btn-block" id="login_btn" name="login_button" value="登录确认"/>
             </form>
         </div>
