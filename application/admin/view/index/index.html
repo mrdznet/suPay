@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>渠道用户支付宝后台管理首页</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- 加载部分样式文件改为本地 start-->
+    <link href="__CSS__/bootstrap.min.css" rel="stylesheet">
+    <link href="__CSS__/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!--<link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--<link href="https://cdn.staticfile.org/font-awesome/4.4.0/css/font-awesome.css?v=4.4.0" rel="stylesheet">-->
+    <!--<link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">-->
+    <!-- 加载部分样式文件改为本地 end-->
+    <link href="__CSS__/style.min.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <input type="text" value="{$username}" id="username" style="border-style:none">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>总跑量额</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{$Totalamount}</h1>
+                    <div class="stat-percent font-bold text-navy"></div>
+                    <small></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>已回款金额</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{$Repaid}</h1>
+                    <div class="stat-percent font-bold text-danger"></div>
+                    <small></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>末回款金额</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{$Unpaid}</h1>
+                    <div class="stat-percent font-bold text-danger"></div>
+                    <small></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>利润</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{$Totalprofit}</h1>
+                    <div class="stat-percent font-bold text-danger"></div>
+                    <small></small>
+                </div>
+            </div>
+        </div>
+        <form id='commentForm' role="form" method="post" class="form-inline pull-right">
+            <div class="content clearfix m-b">
+                <div class="form-group">
+                    <label>开始日期（默认全部）：</label>
+                    <input type="text" class="form-control" id="starttime" name="channel" value="{$starttime}">
+                </div>
+                <div class="form-group">
+                    <label>结束日期（默认全部）：</label>
+                    <input type="text" class="form-control" id="endtime" name="channel" value="{$endtime}">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="button" style="margin-top:5px" id="select"><strong>搜 索</strong>
+                    </button>
+                </div>
+
+            </div>
+        </form>
+        </button>
+    </div>
+    <button class="btn btn-primary" type="button" style="margin-top:5px" id="withdraw"><strong>提 现</strong>
+    </button>
+    <?php
+                if($channel == "nimdaistrator"|| $channel == "agent_total"){
+            ?>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>历史数据分析</h5>
+                </div>
+                <div class="ibox-content no-padding">
+                    <div class="ibox-content" style="height: 350px" id="main">
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+                }
+            ?>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/2.1.4/jquery.min.js"></script>
+<script src="__JS__/bootstrap.min.js?v=3.3.6"></script>
+<script src="__JS__/plugins/echarts/echarts-all.js"></script>
+<script type="text/javascript">
+    $("#select").click(function(){
+        //获取成功率
+      var starttime= document.getElementById("starttime").value;//时间
+      var endtime= document.getElementById("endtime").value;//时间
+        var username= document.getElementById("username").value;
+        var href = "{:url('index/indexPage')}?starttime="+starttime+"&&username="+username+"&&endtime="+endtime;
+            window.location.href=href;
+    });
+//提现
+    $("#withdraw").click(function(){
+        //获取当前代理账号
+        window.location.href="{:url('order/withdrawalapplications')}";
+    });//username
+
+    var data = {$show_data};
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['跑量总额','利润总额']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: data.day,
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name:'跑量总额',
+                type:'line',
+                stack: '总量',
+                data: data.total
+            },
+
+
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+
+</script>
+</body>
+</html>
