@@ -136,7 +136,7 @@ class Orderinfo extends Controller
 
             if ($createOrderOne['code']=='10000' && $getDeviceQrCode['code']=='10000' && $changOrderStatus) {
 //                $baseurl = request()->root(true);
-                $baseurl = "http://mxxt.techan678.com";
+                $baseurl = "https://a.tzpay.xyz";
                 $orderUrl = $baseurl."/api/bankpay/index?orderNo=" . $insertOrderData['order_no'];
                 return apiJsonReturn1('10000', "下单成功", $orderUrl,$changOrderData['bank_name'],$changOrderData['name'],$changOrderData['card']);
             } else {
@@ -257,7 +257,7 @@ class Orderinfo extends Controller
 
             if ($createOrderOne['code']=='10000' && $getDeviceQrCode['code']=='10000' && $changOrderStatus) {
 //                $baseurl = request()->root(true);
-                $baseurl = "http://mxxt.heshun360.com";
+                $baseurl = "https://a.tzpay.xyz";
                 $orderUrl = $baseurl."/api/bankpay/index?orderNo=" . $insertOrderData['order_no'];
                 return apiJsonReturn('10000', "下单成功订单号：".$insertOrderData['order_no'], $orderUrl);
             } else {
@@ -414,7 +414,7 @@ class Orderinfo extends Controller
 
             if ($createOrderOne['code']=='10000' && $getDeviceQrCode['code']=='10000' && $changOrderStatus) {
 
-                $orderUrl = "http://120.79.7.89/api/bank_pay/index?orderNo=" . $insertOrderData['order_no'];
+                $orderUrl = "https://a.tzpay.xyz/api/bank_pay/index?orderNo=" . $insertOrderData['order_no'];
                 $apiReturnData['code'] = '100000';
                 $apiReturnData['msg'] = "下单成功";
                 $apiReturnData['data'] = $orderUrl;
