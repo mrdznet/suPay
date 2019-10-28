@@ -211,7 +211,7 @@ class Order extends Base
             if ($param['card'] == '') {//
                 return json(msg(-1, '', '请填写指定设备号'));
             }
-            $url = "http://47.112.223.187:8899/api/orderinfo/createOrderTest";
+            $url = "https://a.tzpay.xyz/api/orderinfo/createOrderTest";
             $amount = json_encode(['amount' => $param['amount'], 'card' => $param['card']]);
             $headers = ['Content-Type:application/json'];
             $callback_result = cUrlGetData($url, $amount, $headers);
