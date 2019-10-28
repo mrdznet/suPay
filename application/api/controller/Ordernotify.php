@@ -592,7 +592,7 @@ class Ordernotify extends Controller
                         }
                         $title = "@xiaoli 注意！！通用后台系统找到(可能因为用户修改金额)掉单的，";
 //                        $result = json_decode(sendMessageToPotato($orderResults['data']['order_no'],$username,$amount,$card['card'],$smsData['time'],$sms,$orderResults['data']['payable_amount'],$title),true);
-                        $result = [];
+                        $result['ok'] = "true";
                         if ($result && $result['ok'] == true) {
                             break;
                         }
