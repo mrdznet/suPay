@@ -151,18 +151,18 @@ class Login extends Controller
         }
 
         //验证potato验证码
-        $realCode = Session::get('code');
-//        return json(msg(-7, '', '系统验证码：'.$realCode.'输入的的验证码'.$potatoCode));
-        if($realCode == ''){
-            return json(msg(-7, '', '请先获取验证码！'));
-        }
-        if($potatoCode == ''){
-            return json(msg(-7, '', '请输入验证码！'));
-        }
-            if($realCode!= $potatoCode ){
-                return json(msg(-7, '', 'potato验证码错误！'));
-            }
-
+//        $realCode = Session::get('code');
+////        return json(msg(-7, '', '系统验证码：'.$realCode.'输入的的验证码'.$potatoCode));
+//        if($realCode == ''){
+//            return json(msg(-7, '', '请先获取验证码！'));
+//        }
+//        if($potatoCode == ''){
+//            return json(msg(-7, '', '请输入验证码！'));
+//        }
+//            if($realCode!= $potatoCode ){
+//                return json(msg(-7, '', 'potato验证码错误！'));
+//            }
+//
 
 
 
