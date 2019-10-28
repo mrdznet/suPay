@@ -446,7 +446,6 @@ class Ordernotify extends Controller
     //从数据库中读取未使用过的短信
     public function getSms()
     {
-        logs( json_encode( ['code' => 1, 'message' => '成功调用', 'time' => date( 'Y-m-d H:i:s' )] ), 'getSms_test' );
         try {
             //2触发读取数据库短信 循环正则匹配
             $smsModel = new SmsModel();
