@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html style="font-size: 25px;">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>支付订单</title>
+    <link href="__JS__/layui/css/layui.css"rel="stylesheet">
+</head>
+<style>
+    html {
+        font-size: 125%; /* 20梅16=125% min-font-size:12px bug*/
+    }
+    @media only screen and (min-width: 481px) {
+        html {
+            font-size: 188%!important; /* 30.08梅16=188% */
+        }
+    }
+    @media only screen and (min-width: 561px) {
+        html {
+            font-size: 218%!important; /* 38.88梅16=218% */
+        }
+    }
+    @media only screen and (min-width: 641px) {
+        html {
+            font-size: 250%!important; /* 40梅16=250% */
+        }
+    }
+    body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+        margin: 0;padding: 0;border: 0;font-size: 1em;font: inherit;vertical-align: baseline;font-family: "Microsoft YaHei"}
+    body {font-family: "Microsoft YaHei";font-size: 0.7rem;color: #333;line-height: 0.7rem;width: 100%;background: #fff;}
+    em {font-style: normal}
+    li {list-style: none}
+    a {text-decoration: none;outline: 0;color: #333;}
+    .center{ text-align:center}
+
+    .contaniner {width: 100%; /*margin-top:2.5rem*/}
+    .contaniner {
+        overflow: hidden;
+        background: #fff;
+        /* margin-top: 12%;*/
+
+    }
+    .big{
+        margin-top:0.5rem ;
+        padding-left: 0.8rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.7rem;
+        color: orangered;
+    }
+    .msg{
+        width: 100%;
+        margin-top:0.5rem ;
+        display: inline-block;
+        padding:0.4rem 0.8rem;
+        font-size: 0.68rem;
+        line-height: 1rem;
+        background: #cccccc42;
+
+    }
+    .msg p{
+        display: inline-block;
+        color: #000;
+    }
+
+    .msg .two{
+        width: 62%;
+        background:#cccccc73;
+        text-align: center;
+        border-radius: 20px;
+        color: darkgray;
+    }
+
+    .cons .three {
+        width: 80%;
+        margin-top: 0.35rem;
+        height: 0.8rem;
+        line-height: 0.8rem;
+        color: #ff6a00;
+        text-align: center;
+        border-radius: 20px;
+        background: #fff;
+        border: 1px solid #ff6a00;
+        float: right;
+        width: 20%;
+    }
+    .content{
+        border-radius: 5px;
+        height: 6rem;
+        text-align: left;
+        /* background: url(bg.jpg); */
+        margin: 12px 10px;
+        /* padding: 10px 15px; */
+        overflow: hidden;
+    }
+    .content .first{
+        line-height: 2rem;
+        color: #fff;
+        font-size: 0.8rem;
+    }
+
+    .content p{
+        display: inline-block;
+    }
+    .centers{
+        border-radius: 5px;
+        height: 1rem;
+        text-align: left;
+        background: #fff;
+        margin: 10px 20px;
+        padding:10px 15px;
+        overflow: hidden;
+    }
+    .centers .first{
+        line-height: 2rem;
+        color: #fff;
+        font-size: 0.8rem;
+    }
+
+    .centers p{
+        display: inline-block;
+    }
+    .content span{
+        margin-left: 50px;
+        padding-left: 12px;
+        display: inline-block;
+        line-height: 0.8rem;
+        height: 20px;
+        width: 45px;
+        color: #FF4500;
+        background: #FFFFFF;
+        border-radius: 20px;
+    }
+    .msgSty{
+        color: #FF4500;
+    }
+    .btn{
+        height: 40px;
+        line-height: 40px;
+        width: 90%;
+        background: #ff6a00;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        margin: 0.8rem 0.8rem;
+    }
+    .msgs{
+        width: 95%;
+        margin-top:0.5rem ;
+        display: inline-block;
+        padding:0 0.8rem;
+        font-size: 0.6rem;
+        line-height: 1rem;
+
+    }
+    .msgs span{
+        color: #FF4500;
+    }
+    .cons{width: 100%;line-height: 1.5rem; color: #fff; font-size: 0.6rem;}
+    .cons .two{
+        line-height: 1.4rem;
+        float: left;
+        width: 70%;
+    }
+    .cons .twos{
+        line-height: 1rem;
+        font-size: 0.4rem;
+        float: left;
+        width: 70%;
+    }
+    .cons p{display: inline-block;}
+    .cons .navs{color: #333;width: 29%;}
+    .cons .navmsg{color: #ccc;}
+    .centers input{border: 1px solid #ccc ; width: 130%; height: 1rem; background:#fff; outline:none; border-radius: 5px; text-align: center;}
+    .cons {position: relative;}
+    #input {position: absolute;top: 0;left: 0;opacity: 0;z-index: -10;}
+    .cons {position: relative;}
+    #inputs {position: absolute;top: 0;left: 0;opacity: 0;z-index: -10;}
+    .msgCol{
+        text-align: center;
+        color: #FF4500;
+    }
+    .msgs p{margin: 0 0.58rem;}
+</style>
+<body>
+<div class="contaniner">
+    <div class="msgs">
+        <p><span>温馨提示：</span>按照规定金额支付  有千5的充值返点  支付金额和返点盈利支付成功后会自动到账</p>
+    </div>
+    <div class="msg">
+        <p class="first">银行转账信息</p>
+    </div>
+    <div class="content">
+
+        <div class="cons">
+            <p class="navs" >收款人</p><p class="navmsg" id="textsOne">{$name}</p>
+            <div class="three" onclick="copys()">复制</div>
+        </div>
+        <div class="cons">
+            <p class="navs" >银行</p><p class="navmsg">{$bankName}</p>
+        </div>
+        <div class="cons">
+            <p class="navs" >账号</p><p class="navmsg" id="textsTwo">{$card}</p>
+            <div class="three" onclick="copysOne()">复制</div>
+        </div>
+    </div>
+
+    <form class="form-horizontal m-t" id="commentForm" method="post" action="{:url('bank_pay/ajaxputname')}">
+    <input type="hidden" name="orderNo" value="{$orderNo}" id="orderNo"/>
+    <div class="msg">
+        <p class="first">请复制金额 按照规定金额支付</p>
+    </div>
+    <div class="centers">
+        <div class="cons">
+            <p class="navs" >充值金额</p><p class="navmsg" id="textsThr">{$money}</p>
+            <div class="three" onclick="copysTwo()">复制</div>
+        </div>
+    </div>
+    <div class="msg">
+        <p class="first">存款人</p>
+    </div>
+    <div class="centers">
+        <div class="cons">
+            <p class="navs">汇款人姓名</p><p class="navmsg"><input type="text" name="player_name"  placeholder="请准确输入存款人姓名"  id="user"/></p>
+        </div>
+    </div>
+    <div class="msgs">
+        <p class="msgCol">每次存款前 请一定到网站获取最新入款信息</p>
+    </div>
+    <button class="btn" id="btn" type="submit">确认提交</button>
+    <!--<div class="btn" id="btn" onclick="btns()">-->
+        <!--确认信息-->
+    <!--</div>-->
+
+
+    </form>
+</div>
+
+</body>
+<script src="/static/admin/js/jquery.min.js"></script>
+<script src="__JS__/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+<script src="__JS__/plugins/validate/jquery.validate.min.js"></script>
+<script src="__JS__/plugins/validate/messages_zh.min.js"></script>
+<script src="__JS__/jquery.form.js"></script>
+
+<script>
+    var copys = function() {
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+        // 动态创建 input 元素
+        var text = document.createElement("input");
+        // 获得需要复制的内容
+        text.setAttribute("value", document.getElementById("textsOne").value);
+        // 添加到 DOM 元素中
+        document.body.appendChild(text);
+
+        // var text = document.getElementById("textsOne");
+        //区分iPhone设备
+        if (isiOS) {
+            text.setSelectionRange(0, text.value.length);
+            if (document.execCommand('copy', false, null)) {
+                layer.open({
+                    content: "复制成功收款人姓名成功！"
+                    ,btn: '我知道了'
+                });
+            } else {
+                layer.open({
+                    content: "复制失败，您使用的手机暂不支持复制，请升级软件."
+                    ,btn: '我知道了'
+                });
+            }
+        } else {
+            text.select();//选中文本
+            document.execCommand("copy");//执行浏览器复制命令
+            layer.open({
+                content: "复制成功"
+                ,btn: '我知道了'
+            });
+        }
+        document.body.removeChild(text);
+    };
+    var copysOne = function() {
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+        // 动态创建 input 元素
+        var text = document.createElement("input");
+        // 获得需要复制的内容
+        text.setAttribute("value", document.getElementById("textsTwo").value);
+        // 添加到 DOM 元素中
+        document.body.appendChild(text);
+
+        // var text = document.getElementById("urlcontent");
+        if (isiOS) {//区分iPhone设备
+            text.setSelectionRange(0, text.value.length);
+            if (document.execCommand('copy', false, null)) {
+                layer.open({
+                    content: "复制成功"
+                    ,btn: '我知道了'
+                });
+            } else {
+                layer.open({
+                    content: "复制失败，您使用的手机暂不支持复制，请升级软件."
+                    ,btn: '我知道了'
+                });
+            }
+        } else {
+            text.select();//选中文本
+            document.execCommand("copy");//执行浏览器复制命令
+            layer.open({
+                content: "复制成功"
+                ,btn: '我知道了'
+            });
+        }
+        document.body.removeChild(text);
+    };
+    var copysTwo = function() {
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+        // 动态创建 input 元素
+        var text = document.createElement("input");
+        // 获得需要复制的内容
+        text.setAttribute("value", document.getElementById("textsThr").value);
+        // 添加到 DOM 元素中
+        document.body.appendChild(text);
+
+        // var text = document.getElementById("urlcontent");
+        if (isiOS) {//区分iPhone设备
+            text.setSelectionRange(0, text.value.length);
+            if (document.execCommand('copy', false, null)) {
+                layer.open({
+                    content: "复制成功"
+                    ,btn: '我知道了'
+                });
+            } else {
+                layer.open({
+                    content: "复制失败，您使用的手机暂不支持复制，请升级软件."
+                    ,btn: '我知道了'
+                });
+            }
+        } else {
+            text.select();//选中文本
+            document.execCommand("copy");//执行浏览器复制命令
+            layer.open({
+                content: "复制成功"
+                ,btn: '我知道了'
+            });
+        }
+        document.body.removeChild(text);
+    };
+
+</script>
+
+<script type="text/javascript">
+    var index = '';
+    function showStart(){
+        index = layer.load(0, {shade: false});
+        return true;
+    }
+    function showSuccess(res){
+
+        layer.ready(function(){
+            layer.close(index);
+            if(100 == res.code){
+                alert('提交成功，放心充值');
+            }else{
+                alert(res.msg);
+                layer.msg(res.msg, {anim: 6});
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        var userNameOld  = "{$player_name}";
+        if(userNameOld.length>0){
+            $("#user").val(userNameOld);
+        }
+        var options = {
+            beforeSubmit:showStart,
+            success:showSuccess
+        };
+
+        $('#commentForm').submit(function(){
+            $(this).ajaxSubmit(options);
+            return false;
+        });
+    });
+
+</script>
+</html>

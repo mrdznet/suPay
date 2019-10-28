@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html style="font-size: 25px;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>支付订单</title>
+</head>
+
+<style>
+	html {
+		font-size: 125%; /* 20梅16=125% min-font-size:12px bug*/
+	}
+	@media only screen and (min-width: 481px) {
+		html {
+			font-size: 188%!important; /* 30.08梅16=188% */
+		}
+	}
+	@media only screen and (min-width: 561px) {
+		html {
+			font-size: 218%!important; /* 38.88梅16=218% */
+		}
+	}
+	@media only screen and (min-width: 641px) {
+		html {
+			font-size: 250%!important; /* 40梅16=250% */
+		}
+	}
+	body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+		margin: 0;padding: 0;border: 0;font-size: 1em;font: inherit;vertical-align: baseline;font-family: "Microsoft YaHei"}
+	body {font-family: "Microsoft YaHei";font-size: 0.7rem;color: #333;line-height: 0.7rem;width: 100%;background: #f2f2f2;}
+	em {font-style: normal}
+	li {list-style: none}
+	a {text-decoration: none;outline: 0;color: #333;}
+	.center{ text-align:center}
+	.payCode {
+		width: 230px;
+		height: 230px;
+		background: white;
+		text-align: center;
+		margin: 50px auto;
+		margin-top: 50px;
+	}
+	.contaniner {width: 100%; /*margin-top:2.5rem*/}
+	.contaniner {
+		overflow: hidden;
+		background: #f2f2f2;
+
+	}
+	#qrcode{
+		margin-top: 50px;
+		padding-top: 15px;
+		padding-left: 15px;
+	}
+	.content{
+		background: #fff;
+		margin: 5px;
+		padding:10px 0px;
+
+		overflow: hidden;
+	}
+	.PayMade{
+		line-height: 1.1rem;
+		height: 1.1rem;
+	}
+	.PayMade p{
+		color: red;
+		font-size: 12px;
+		padding-left: 10px;
+	}
+	.payName{
+		background:#E5E5E5 ;
+		line-height: 1.1rem;
+		height: 1.1rem;
+	}
+	.payName p{
+		padding-left: 10px;
+		color: #333;
+		font-size: 12px;
+	}
+	.OrdMoney{
+		text-align: center;
+		line-height: 2.8rem;
+		height: 2.8rem;
+		font-size: 34px;
+		color: #666;
+	}
+	.fontColor{
+		color: red;
+		font-weight: bolder;
+	}
+	.Msg{
+		padding-left: 10px;
+		line-height: 1.1rem;
+
+		font-weight: 700;
+		padding-right: 10px;
+	}
+	.Msg>p:nth-child(1){
+		color: #ee6e13;
+		font-size: 18px;
+	}
+	.Msg>p:nth-child(2){
+		color: blue;
+		font-size: 15px;
+	}
+	.Msgs{
+		line-height:0.9rem;
+		font-size: 15px;
+		color: #ff0909;
+	}
+	.Msgs>p:last-child{
+		font-size: 15px;
+		color: #ee6e13;
+	}
+	.saoyisao{
+		color: #ee6e13;
+	}
+	.mark{
+		position: relative;
+		background-color: #777;
+		opacity: 0.6;
+	}
+	.errorMsg{
+		font-weight: bolder;
+		font-size: 20px;
+		background: #fff;
+		position: absolute;
+		z-index: 200;
+		color: red;
+		top: 43%;
+		left: 24%;
+	}
+</style>
+
+
+<!--<script src="http://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
+
+<script src="http://techan678.com/static/admin/js/jquery.min.js"></script>
+<script src="http://techan678.com/static/admin/js/flexible.js"></script>
+<script src="http://techan678.com/static/admin/js/qrcode.min.js"></script>
+<body>
+<div class="contaniner">
+	<div class="payCode">
+		<div class="errorMsg" style="display: none;">二维码已失效</div>
+		<div id="qrDiv" style="display: none;"></div>
+		<div id="qrcode" ></div>
+	</div>
+	<div class="content">
+		<div class="OrdMoney">
+			金额：<span class="fontColor">{$payableAmountShow}元</span>
+		</div>
+		<div class="Msg">
+			<div class="Msgs">
+				<p>1.请截屏保存图片。</p>
+				<p>2.打开支付宝,请选择扫一扫。</p>
+				<p>3.选择右上角相册。 </p>
+				<p>4.选择最新保存的二维码图片。</p>
+				<p>温馨提示：支付完成请删除保存的图片，重复支付无效。</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--<script src="https://pay1.yishurong.cn/view/default/js/jquery.min11.js"></script>-->
+<script>
+	var qrcode = new QRCode('qrcode', {
+		text: {$orderUrl},
+		width: 200,
+		height:200,
+		colorDark : '#000000',
+		colorLight : '#ffffff',
+		correctLevel : QRCode.CorrectLevel.H
+	});
+
+	// 当浏览器不支持canvas时 不显示
+	qrcode.clear();
+	//传入链接参数
+	qrcode.makeCode({$orderUrl});
+
+	//倒计时时间
+	var wait = {$countdownTime};
+
+	function time(o) {
+		if (wait == 0) {
+			$(".payCode").addClass("mark");
+			$(".errorMsg").css('display','block');
+		} else {
+			wait--;
+			setTimeout(function() {
+					time(o)
+					document.getElementById('times').innerHTML=wait;
+				},
+				1000)
+		}
+	}
+	time();
+
+
+	$("#goPay").click(function(){
+		go();
+	});
+
+
+	function returnApp() {
+		AlipayJSBridge.call("exitAliapp")
+	}
+	function ready(callback) {
+		// 如果jsbridge已经注入则直接调用
+		if (window.AlipayJSBridge) {
+			callback && callback();
+		} else {
+			// 如果没有注入则监听注入的事件
+			document.addEventListener('AlipayJSBridgeReady', callback, false);
+		}
+	}
+	function go() {
+		ready(function () {
+			try {
+				var a = {
+					actionType: "toCard",
+					sourceId:"bill",
+					cardNo:{$cardNo},
+					bankAccount:{$receiverName},
+					money:{$payableAmount},
+					amount:{$payableAmount},
+					bankMark:{$bankMark},
+					bankName:{$bankName},
+					cardNoHidden:true,
+					cardChannel:"HISTORY_CARD",
+					orderSource:"from"
+				}
+			} catch (b) {
+				returnApp()
+			}
+			AlipayJSBridge.call("startApp", {
+				appId: "09999988",
+				param: a
+			}, function (a) {
+			})
+		});
+	}
+
+	go();
+	returnApp();
+
+	document.addEventListener("resume", function(a) {
+		returnApp()
+	});
+
+</script>
+</body>
+</html>

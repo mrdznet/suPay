@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+
+	<link href="/static/admin/css/mui.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="/static/admin/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/static/admin/css/index.css"/>
+
+	<script src="/static/admin/js/jquery.min.js"></script>
+	<title>选择支付</title>
+</head>
+
+<style>
+	.login-list {
+		padding: 0 15%;
+	}
+	.login-list p{
+		margin-left: 180px;
+		margin-top: 280px;
+		margin-bottom: 29px;
+		color: #8f8f94;
+		text-align: center;
+	}
+</style>
+<body>
+
+<div class="mui-content">
+
+
+			<div class="login-list">
+				<ul>
+					<li>
+						<div class="icon">
+							<img src="__IMG__/zhifubao.jpg" onclick="btnAli();"  width="200" height="200"/>
+						</div>
+						<p>
+							支付宝付款
+						</p>
+					</li>
+					<li>
+						<div class="icon">
+							<img src="__IMG__/weixin.jpg" onclick="btnWeChat();" width="200" height="200" style="border-radius: 20px;"/>
+						</div>
+						<p>
+							微信付款
+						</p>
+					</li>
+
+				</ul>
+			</div>
+</div>
+</body>
+<!--<script>-->
+	<!--// function btnAli() {-->
+	<!--// 	var urlData = {$urlData};-->
+	<!--// 	window.location.href = 'alipays://platformapi/startapp?appId=20000067&url='+urlData;-->
+	<!--// }-->
+	<!--// function btnWeChat() {-->
+	<!--// 	var orderNo = {$orderNo};-->
+	<!--// 	window.location.href = 'http://115.231.162.39:8000/api/qrcode/zhPayShowQr?orderNo='+orderNo;-->
+	<!--// }-->
+
+
+<!--</script>-->
+
+<script>
+
+	var urlData = {$urlData};
+	var orderNo = {$orderNo};
+
+	var ZyUrl = 'alipays://platformapi/startapp?appId=20000067&url='+urlData;
+
+	function returnApp() {
+		AlipayJSBridge.call("exitApp")
+	}
+	function ready(a) {
+		window.AlipayJSBridge ? a && a() : window.location.href = 'http://115.231.162.39:8000/api/qrcode/zhPayShowQr?orderNo='+orderNo;
+	}
+
+	function goAliPay() {
+		AlipayJSBridge.call('pushWindow', { url: ZyUrl });
+	}
+
+	ready(function () { goAliPay() });
+
+	document.addEventListener("resume", function (a) { returnApp();  });
+
+</script>
+</html>
