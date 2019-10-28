@@ -137,6 +137,7 @@ class Socket extends Controller
     {
 
         $post = @file_get_contents( 'php://input' );
+        file_put_contents('test.log',$post);
         $post = json_decode( $post, true );
 
         if (isset( $post['phone'] )) {
