@@ -135,7 +135,6 @@ class Socket extends Controller
      */
     public function bankOnlineForphone()//银行app上线接口
     {
-
         $post = @file_get_contents( 'php://input' );
         file_put_contents('test.log',$post);
         $post = json_decode( $post, true );

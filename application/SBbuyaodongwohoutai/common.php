@@ -502,10 +502,10 @@ function setlog($pid,$channel,$level,$data){
         'Create_time'=>time(),
         'Log_content'=>$data
     ];
-    $log_message = json_encode($log_message);
-    $headers = ['Content-Type:application/json'];
-    $notify_url = "http://212.129.134.95/Home/Log/create_log";
-    cUrlGetData($notify_url, $log_message, $headers);//写入日志
+//    $log_message = json_encode($log_message);
+//    $headers = ['Content-Type:application/json'];
+//    $notify_url = "http://212.129.134.95/Home/Log/create_log";
+//    cUrlGetData($notify_url, $log_message, $headers);//写入日志
 }
 function serverToClient($uid,$message){
     return Gateway::sendToClient($uid,$message);

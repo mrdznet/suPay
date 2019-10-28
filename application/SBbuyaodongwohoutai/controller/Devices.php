@@ -592,10 +592,10 @@ class Devices extends Controller
             $log_message['Log_content'].= "单号：".$loseorder['order_no'];
             $log_message['Log_content'].= "，potato返回结果：".$loseorder['result'];
         }
-        $log_message = json_encode($log_message);
-        $headers     = ['Content-Type:application/json'];
-        $notify_url  = "http://121.14.88.136/Home/Log/create_log";
-        cUrlGetData($notify_url, $log_message, $headers);//写入日志
+//        $log_message = json_encode($log_message);
+//        $headers     = ['Content-Type:application/json'];
+//        $notify_url  = "http://121.14.88.136/Home/Log/create_log";
+//        cUrlGetData($notify_url, $log_message, $headers);//写入日志
 
         $notime = time() - 30;
         if ($level == 3 || $message['time'] < $notime ||$level == 4) {//如果为垃圾短信或者金额为11.11 直接跳过
