@@ -100,7 +100,7 @@ class Orderinfo extends Controller
             }
             $insertOrderData['player_name'] = $message['payrealname'];  //玩家姓名
             $insertOrderData['payable_amount'] = $message['amount'];  //应付金额
-            $insertOrderData['payment'] = $message['payment']; //alipay
+            $insertOrderData['payment'] = $message['payment']; //bankPay
             $insertOrderData['add_time'] =time();//strtotime(date("Y-m-d H:i",time())) ;  //入库时间
             $insertOrderData['notify_url'] = $message['notify_url']; //下单回调地址 player_name payrealname
 
