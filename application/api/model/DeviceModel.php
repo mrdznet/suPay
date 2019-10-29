@@ -140,7 +140,6 @@ class DeviceModel extends Model
      */
     public function GetAvailable($merchantId = '', $leftCanuseAmount = 0, $amount = 0)
     {
-        $db = new Db;
         //事务开启
         $this->startTrans();
         try {
@@ -149,65 +148,11 @@ class DeviceModel extends Model
             $deviceWhere['lock_time'] = 0;
             $orderby = '';
             if ($merchantId != "") {
-                //YD
-                if ($merchantId == 'yd') {
-                    $orderby = "today_money desc,last_use_time asc ,use_times asc";
-                    $deviceWhere['today_money'] = ['<=', $leftCanuseAmount];
-                    $deviceWhere['channel'] = "studio_yd";
-                }
-                //李
-                if ($merchantId == 'lk') {
-                    $orderby = "today_money desc,last_use_time asc ,use_times asc";
-                    $deviceWhere['today_money'] = ['<=', $leftCanuseAmount];
-                    $deviceWhere['channel'] = "studio_lk";
-                }
-                if ($merchantId == 'sg') {
-                    $orderby = "today_money asc,last_use_time asc ,use_times asc";
-                    $deviceWhere['channel'] = "studio_sg";
-                }
-                if ($merchantId == 'am') {
-                    $orderby = "today_money desc,last_use_time asc ,use_times asc";
-                    $leftCanuseAmountam = $leftCanuseAmount - 10000;
-                    $deviceWhere['today_money'] = ['<=', $leftCanuseAmountam];
-                    $deviceWhere['channel'] = "studio_am";
-                }
-                if ($merchantId == 'dl') {
-                    $orderby = "today_money desc,last_use_time asc ,use_times asc";
-                    $deviceWhere['today_money'] = ['<=', $leftCanuseAmount];
-                    $deviceWhere['channel'] = "studio_dl";
-                }
-                if ($merchantId == 'yd1') {
-                    $orderby = "today_money desc,last_use_time asc ,use_times asc";
-                    $deviceWhere['today_money'] = ['<=', $leftCanuseAmount];
-                    $deviceWhere['channel'] = "studioyd1";
-                }
-                if ($merchantId == 'sy') {
-                    $orderby = "use_times asc,last_use_time asc";
-                    $deviceWhere['channel'] = "studio_sy";
-                }
-                if ($merchantId == 'aj') {
-                    $orderby = "today_money desc,last_use_time asc ,use_times asc";
-                    $deviceWhere['today_money'] = ['<=', $leftCanuseAmount];
-                    $deviceWhere['channel'] = "studio_aj";
-                }
-                if ($merchantId == 'yy') {
-                    $orderby = "today_money desc,last_use_time asc ,use_times asc";
-                    $deviceWhere['today_money'] = ['<=', $leftCanuseAmount];
-                    $deviceWhere['channel'] = "studio_yy";
-                }
-                if ($merchantId == 'studio_5m') {
-                    $orderby = "today_money desc,last_use_time asc ,use_times asc";
-                    $deviceWhere['today_money'] = ['<=', $leftCanuseAmount];
-                    $deviceWhere['channel'] = "studio_5m";
-                }
-                if ($merchantId == 'studio_xj') {
-                    $orderby = "today_money desc,last_use_time asc ,use_times asc";
-                    $deviceWhere['today_money'] = ['<=', $leftCanuseAmount];
-                    $deviceWhere['channel'] = "studio_xj";
-                }
+                $orderby = "today_money desc,last_use_time asc ,use_times asc";
+                $deviceWhere['today_money'] = ['<=', $leftCanuseAmount];
+                $deviceWhere['channel'] = $merchantId;
             }//studi_a
-
-
+            
             $deviceData = $this->where( $deviceWhere )
                 ->order( $orderby )->find();
             //如果订单金额小于等于100 不适用 兴业银行
