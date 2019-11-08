@@ -190,7 +190,8 @@ class OrderModel extends Model
             $notifyData["status"] = "10000";   // 支付成功
             $notifyData["time"] = time();   //订单支付时间;
             $notifyData["trade_amount"] = $orderData['amount'];   //订单金额;
-            $notifyData["receipt_amount"] = $notifyMoney*1.005;  //实际支付金额;
+//            $notifyData["receipt_amount"] = $notifyMoney*1.005;  //实际支付金额;
+            $notifyData["receipt_amount"] = $notifyMoney;  //实际支付金额;
             $notifyData["order_no"] = $orderData['order_no'];   //商户订单号;
             $merchantModel = new Merchant();
             $token = $merchantModel::field('token')->where('merchant_id', '=', $orderData['merchant_id'])->find()['token'];

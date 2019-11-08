@@ -444,7 +444,8 @@ class Bankpay extends Controller
             exit;
         }
         $this->assign('money', $orderData['amount']);  //下单金额
-        $this->assign('tomoney', $orderData['amount']*1.005);  //下单金额
+//        $this->assign('tomoney', $orderData['amount']*1.005);  //下单金额
+        $this->assign('tomoney', $orderData['amount']);  //下单金额
         $this->assign('card', $orderData['card']);  //收款银行卡号
         $this->assign('bankName', $orderData['bank_name']);    //收款银行卡名称
         $this->assign('name', $orderData['name']);    //收款者真实姓名

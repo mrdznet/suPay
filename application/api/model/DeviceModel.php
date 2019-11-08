@@ -140,6 +140,7 @@ class DeviceModel extends Model
      */
     public function GetAvailable($merchantId = '', $leftCanuseAmount = 0, $amount = 0)
     {
+        $db = new Db;
         //事务开启
         $this->startTrans();
         try {
@@ -148,11 +149,14 @@ class DeviceModel extends Model
             $deviceWhere['lock_time'] = 0;
             $orderby = '';
             if ($merchantId != "") {
+
                 $orderby = "today_money desc,last_use_time asc ,use_times asc";
                 $deviceWhere['today_money'] = ['<=', $leftCanuseAmount];
                 $deviceWhere['channel'] = $merchantId;
+
             }//studi_a
-            
+
+
             $deviceData = $this->where( $deviceWhere )
                 ->order( $orderby )->find();
             //如果订单金额小于等于100 不适用 兴业银行
